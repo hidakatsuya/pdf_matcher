@@ -1,0 +1,35 @@
+name: Test
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    name: Test on ruby ${{ matrix.ruby_version }}
+    runs-on: ubuntu-latest
+
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
+
+    strategy:
+      matrix:
+        ruby_version:
+          - 2.6
+          - 2.7
+          - 3.0
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - uses: hidakatsuya/setup-diff-pdf@v1
+      with:
+        diff-pdf-version: 0.5
+
+    - name: Set up Ruby ${{ matrix.ruby_version }}
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby_version }}
+
+    - name: Install dependencies
+      run: bundle install --jobs 4 --retry 3
+
+    - name: Run Tests
+      run: bundle exec rake test
