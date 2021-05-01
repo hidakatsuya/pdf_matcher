@@ -67,8 +67,25 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/hidaka
 ## Testing
 
 ```
-$ bundle exec rake
+$ bundle exec rake test
 ```
+
+However, this gem requires diff-pdf. You can install it locally or use a docker container.
+
+```
+$ docker build -t pdf_matcher:latest .
+$ docker run -v $PWD:/src:cached -it pdf_matcher bash
+
+> src# bundle install
+> src# bundle exec rake test
+```
+
+Or, you can run tests instantlly like this:
+
+```
+$ docker run --rm -v $PWD:/src -it pdf_matcher bash -c "bundle install && bundle exec rake test"
+```
+
 
 ## License
 
