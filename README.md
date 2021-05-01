@@ -35,23 +35,27 @@ PdfMatcher.match?('/path/to/a.pdf', '/path/to/b.pdf') #=> boolean
 PdfMatcher.match?(Pathname('/path/to/a.pdf'), Pathname('/path/to/b.pdf')) #=> boolean
 
 PdfMatcher.match?(pdf_a, pdf_b, output_diff: '/path/to/diff.pdf') #=> boolean
-PdfMatcher.match?(pdf_a, pdf_b, diff_pdf_opts: ['dpi=300']) #=> boolean
+PdfMatcher.match?(pdf_a, pdf_b, diff_pdf_opts: ['--dpi=300']) #=> boolean
 
-result = PdfMatcher.match(pdf_a, pdf_b, output_diff: nil or '/path/to/diff.pdf' or Pathname, diff_pdf_opts: ['dpi=300'])
+result = PdfMatcher.match(
+  pdf_a, pdf_b,
+  output_diff: nil,  # or '/path/to/diff.pdf' or Pathname('/path/to/diff.pdf')
+  diff_pdf_opts: nil # or ['--dpi=300']
+)
 result.matched? #=> boolean
 
-# Returns nil if the PDF data is passed as an argument
+# Returns nil if pdf data is passed, otherwise returns path as Pathname.
 result.pdf1_path #=> Pathname or nil
 result.pdf2_path #=> Pathname or nil
 
 result.pdf1_data #=> "%PDF-..."
 result.pdf2_data #=> "%PDF-..."
 
-# Returns nil if the output_diff parameter is nil
+# Returns nil if the output_diff parameter is nil.
 result.diff_pdf_path #=> Pathname or nil
 result.diff_pdf_data #=> "%PDF-..." or nil
 
-PdfMatcher.config.diff_pdf_opts = ['dpi=300']
+PdfMatcher.config.diff_pdf_opts = ['--dpi=300']
 ```
 
 ## Contributing
