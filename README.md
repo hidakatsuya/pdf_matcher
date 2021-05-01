@@ -1,5 +1,7 @@
 # PdfMatcher
 
+[![Test](https://github.com/hidakatsuya/pdf_matcher/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/hidakatsuya/pdf_matcher/actions/workflows/test.yml)
+
 A gem to compare two PDFs and output the differences using [diff-pdf](https://github.com/vslavik/diff-pdf).
 
 ## Prerequisites
