@@ -1,6 +1,6 @@
 # PdfMatcher
 
-A library to compare two PDFs and output the differences using [diff-pdf](https://github.com/vslavik/diff-pdf).
+A gem to compare two PDFs and output the differences using [diff-pdf](https://github.com/vslavik/diff-pdf).
 
 ## Prerequisites
 
