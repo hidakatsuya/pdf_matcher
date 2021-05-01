@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'tempfile'
+
 module PdfMatcher
   module PdfFile
     def self.init(path_or_data)
@@ -49,7 +51,7 @@ module PdfMatcher
       end
 
       def open
-        @io ||= Temfile.open
+        @io ||= ::Tempfile.open { |f| f.puts data; f }
       end
 
       def path

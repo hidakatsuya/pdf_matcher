@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative 'diff_pdf'
 require_relative 'pdf_file'
 require_relative 'match_result'
 
@@ -13,7 +14,7 @@ module PdfMatcher
     end
 
     def match
-      @result ||= MatchResult.new(match_pdfs, pdf1, pdf2, diff_pdf_path)
+      @result ||= MatchResult.new(match_pdfs, pdf1, pdf2, output_diff_path)
     end
 
     private
