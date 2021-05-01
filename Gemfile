@@ -3,4 +3,6 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'rake'
-gem 'test-unit', '>= 3.3.9'
+gem 'test-unit'
+gem 'test-unit-rr'
+gem 'prawn'
