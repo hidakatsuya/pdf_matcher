@@ -7,9 +7,15 @@ A gem to compare two PDFs and output the differences using [diff-pdf](https://gi
 
 ## Prerequisites
 
+### diff-pdf Required
+
 This gem requires [diff-pdf](https://github.com/vslavik/diff-pdf). See [the README.md](https://github.com/vslavik/diff-pdf) for how to install it.
 
 Note that you can install it with [hidakatsuya/setup-diff-pdf](https://github.com/hidakatsuya/setup-diff-pdf) in GitHub Action.
+
+### Supported Ruby Versions
+
+2.6, 2.7, 3.0
 
 ## Installation
 
