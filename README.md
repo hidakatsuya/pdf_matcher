@@ -67,6 +67,10 @@ result.diff_pdf_data #=> "%PDF-..." or nil
 PdfMatcher.config.diff_pdf_opts = ['--dpi=300']
 ```
 
+## Use in Testing Frameworks
+
+- [test-unit-pdf_matcher](https://github.com/hidakatsuya/test-unit-pdf_matcher)
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/hidakatsuya/pdf_matcher. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/hidakatsuya/pdf_matcher/blob/master/CODE_OF_CONDUCT.md).
