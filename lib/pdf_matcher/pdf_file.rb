@@ -51,7 +51,11 @@ module PdfMatcher
       end
 
       def open
-        @io ||= ::Tempfile.open { |f| f.puts data; f }
+        @io ||= ::Tempfile.open do |f|
+          f.binmode
+          f.puts data
+          f
+        end
       end
 
       def path
