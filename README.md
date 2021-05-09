@@ -69,7 +69,7 @@ PdfMatcher.config.diff_pdf_opts = ['--dpi=300']
 
 ## Use in Testing Frameworks
 
-- [test-unit-pdf_matcher](https://github.com/hidakatsuya/test-unit-pdf_matcher)
+Try [pdf_matcher-testing gem](https://github.com/hidakatsuya/pdf_matcher-testing).
 
 ## Contributing
 
