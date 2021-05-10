@@ -60,7 +60,7 @@ result.pdf2_path #=> Pathname or nil
 result.pdf1_data #=> "%PDF-..."
 result.pdf2_data #=> "%PDF-..."
 
-# Returns nil if the output_diff parameter is nil.
+# Returns nil if the output_diff parameter is nil or the PDFs are matched.
 result.diff_pdf_path #=> Pathname or nil
 result.diff_pdf_data #=> "%PDF-..." or nil
 

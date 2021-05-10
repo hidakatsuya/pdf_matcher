@@ -1,3 +1,9 @@
+## Main (Unreleased)
+
+### Breaking Changes
+
+- Delete (not keep) the difference PDF when the PDFs are matched
+
 ## 1.0.1
 
 ### Bug Fixes

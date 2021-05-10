@@ -25,16 +25,6 @@ class PdfMatcherTest < TestCase
       assert_false PdfMatcher.match?(Pathname(pdf1_path), Pathname(pdf2_path))
     end
 
-    test 'outputting a diff pdf file' do
-      pdf1_data = create_pdf_data { text 'Hello' }
-      pdf2_data = create_pdf_data { text 'Goodbye' }
-
-      tmpfile = open_tempfile
-      PdfMatcher.match?(pdf1_data, pdf2_data, output_diff: tmpfile.path)
-
-      assert_pdf File.binread(tmpfile.path)
-    end
-
     test 'specifying diff-pdf options' do
       pdf_data = create_pdf_data { text 'Hello' }
 
@@ -58,6 +48,27 @@ class PdfMatcherTest < TestCase
       }
 
       assert_equal opened_files[:before], opened_files[:after]
+    end
+
+    sub_test_case 'generating a difference PDF' do
+      test 'keep the PDF when the PDFs are not matched' do
+        pdf1_data = create_pdf_data { text 'Hello' }
+        pdf2_data = create_pdf_data { text 'Goodbye' }
+
+        tmpfile = open_tempfile
+        PdfMatcher.match?(pdf1_data, pdf2_data, output_diff: tmpfile.path)
+
+        assert_pdf File.binread(tmpfile.path)
+      end
+
+      test 'remove (not keep) the PDF when the PDFs are matched' do
+        pdf_data = create_pdf_data { text 'Hello' }
+
+        tmpfile = open_tempfile
+        PdfMatcher.match?(pdf_data, pdf_data, output_diff: tmpfile.path)
+
+        assert_false File.exist?(tmpfile.path)
+      end
     end
   end
 
@@ -94,6 +105,22 @@ class PdfMatcherTest < TestCase
       assert_pdf result.pdf2_data
       assert_equal tmpfile.path, result.diff_pdf_path.to_s
       assert_equal File.binread(tmpfile.path), result.diff_pdf_data
+    end
+
+    test 'when the PDFs are matched' do
+      pdf_data = create_pdf_data { text 'Hello' }
+
+      tmpfile = open_tempfile
+      result = PdfMatcher.match(pdf_data, pdf_data, output_diff: tmpfile.path)
+
+      assert_instance_of PdfMatcher::MatchResult, result
+      assert_true result.matched?
+      assert_nil result.pdf1_path
+      assert_nil result.pdf2_path
+      assert_equal pdf_data, result.pdf1_data
+      assert_equal pdf_data, result.pdf2_data
+      assert_nil result.diff_pdf_path
+      assert_nil result.diff_pdf_data
     end
   end
 

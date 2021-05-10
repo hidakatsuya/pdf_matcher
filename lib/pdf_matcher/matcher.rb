@@ -14,7 +14,18 @@ module PdfMatcher
     end
 
     def match
-      @result ||= MatchResult.new(match_pdfs, pdf1, pdf2, output_diff_path)
+      @result ||= begin
+        matched = match_pdfs
+
+        if matched
+          # [NOTE] The diff-pdf command will generate a diff PDF file
+          # regardless of the result if the `--output_diff` option is given.
+          output_diff_path.unlink if output_diff_path&.exist?
+          MatchResult.new(matched, pdf1, pdf2, nil)
+        else
+          MatchResult.new(matched, pdf1, pdf2, output_diff_path)
+        end
+      end
     end
 
     private
