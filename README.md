@@ -86,7 +86,7 @@ result.diff_pdf_path #=> Pathname or nil
 result.diff_pdf_data #=> "%PDF-..." or nil
 ```
 
-### Congituring the default options for the diff-pdf command
+### Configuring the default options for the diff-pdf command
 
 ```ruby
 PdfMatcher.config.diff_pdf_opts = %w(
