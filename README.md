@@ -35,22 +35,43 @@ Or install it yourself as:
 
 ## Usage
 
+### PdfMatcher.match?
+
+Returns true if the PDFs match, false otherwise.
+
 ```ruby
-require 'pdf_matcher'
+PdfMatcher.match?(pdf_a_data, pdf_b_data)
+PdfMatcher.match?('/path/to/a.pdf', '/path/to/b.pdf')
+PdfMatcher.match?(Pathname('/path/to/a.pdf'), Pathname('/path/to/b.pdf'))
+```
 
-PdfMatcher.match?(pdf_a, pdf_b) #=> boolean
+#### `output_diff` option:
 
-PdfMatcher.match?('/path/to/a.pdf', '/path/to/b.pdf') #=> boolean
-PdfMatcher.match?(Pathname('/path/to/a.pdf'), Pathname('/path/to/b.pdf')) #=> boolean
+If the PDFs do not match, a difference PDF file will be generated at the path specified.
 
-PdfMatcher.match?(pdf_a, pdf_b, output_diff: '/path/to/diff.pdf') #=> boolean
-PdfMatcher.match?(pdf_a, pdf_b, diff_pdf_opts: ['--dpi=300']) #=> boolean
+```ruby
+PdfMatcher.match?(pdf_a_data, pdf_b_data, output_diff: '/path/to/diff.pdf')
+```
 
+#### `diff_pdf_opts` option:
+
+The specified values will be set as options for the `diff-pdf` command.
+
+```ruby
+PdfMatcher.match?(pdf_a_data, pdf_b_data, diff_pdf_opts: ['--mark-differences', '--dpi=600'])
+```
+
+### PdfMatcher.match
+
+Returns the PDF match result as a `PdfMatcher::MatchResult` object.
+
+```ruby
 result = PdfMatcher.match(
   pdf_a, pdf_b,
-  output_diff: nil,  # or '/path/to/diff.pdf' or Pathname('/path/to/diff.pdf')
-  diff_pdf_opts: nil # or ['--dpi=300']
+  output_diff: nil,
+  diff_pdf_opts: nil
 )
+
 result.matched? #=> boolean
 
 # Returns nil if pdf data is passed, otherwise returns path as Pathname.
@@ -63,9 +84,18 @@ result.pdf2_data #=> "%PDF-..."
 # Returns nil if the output_diff parameter is nil or the PDFs are matched.
 result.diff_pdf_path #=> Pathname or nil
 result.diff_pdf_data #=> "%PDF-..." or nil
-
-PdfMatcher.config.diff_pdf_opts = ['--dpi=300']
 ```
+
+### Congituring the default options for the diff-pdf command
+
+```ruby
+PdfMatcher.config.diff_pdf_opts = %w(
+  --mark-differences
+  --channel-tolerance=40
+)
+```
+
+See `diff-pdf --help` for available options of the diff-pdf.
 
 ## Use in Testing Frameworks
 
