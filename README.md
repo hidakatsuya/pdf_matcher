@@ -114,8 +114,8 @@ $ bundle exec rake test
 However, this gem requires diff-pdf. You can install it locally or use a docker container.
 
 ```
-$ docker build -t pdf_matcher:latest .
-$ docker run -v $PWD:/src:cached -it pdf_matcher bash
+$ docker pull ghcr.io/hidakatsuya/ruby-with-diff-pdf:latest
+$ docker run -v $PWD:/src:cached -it ghcr.io/hidakatsuya/ruby-with-diff-pdf bash
 
 > src# bundle install
 > src# bundle exec rake test
@@ -124,7 +124,7 @@ $ docker run -v $PWD:/src:cached -it pdf_matcher bash
 Or, you can run tests instantlly like this:
 
 ```
-$ docker run --rm -v $PWD:/src -it pdf_matcher bash -c "bundle install && bundle exec rake test"
+$ docker run --rm -v $PWD:/src -it ghcr.io/hidakatsuya/ruby-with-diff-pdf bash -c "bundle install && bundle exec rake test"
 ```
 
 
