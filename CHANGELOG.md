@@ -1,3 +1,9 @@
+## 2.1.0
+
+## Bug fix
+
+- Fixes an issue where it would appear diff-pdf ran successfully but actually returned an erroneous exit code. Now raises an error if this occurs.
+
 ## 2.0.0
 
 ### Breaking Changes

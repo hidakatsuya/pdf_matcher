@@ -147,4 +147,19 @@ class PdfMatcherTest < TestCase
       PdfMatcher.match?(pdf_data, pdf_data)
     end
   end
+
+  sub_test_case 'exit code' do
+    teardown { PdfMatcher.config.diff_pdf_opts = nil }
+
+    test 'unknown exit code raises exception' do
+      assert_nil PdfMatcher.config.diff_pdf_opts
+
+      PdfMatcher.config.diff_pdf_opts = ['--invalid-option-used-for-testing']
+      pdf_data = create_pdf_data { text 'Hello' }
+
+      assert_raise(PdfMatcher::DiffPdf::UnknownDiffPdfExitCode) do
+        PdfMatcher.match(pdf_data, pdf_data)
+      end
+    end
+  end
 end

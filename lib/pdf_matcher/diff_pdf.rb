@@ -19,12 +19,23 @@ module PdfMatcher
       end
     end
 
+    class UnknownDiffPdfExitCode < StandardError
+      def initialize(code)
+        super "pdf_matcher did not recognize the exit code #{code} from the diff-pdf command, " \
+              'this probably means there is a problem with your installed version of diff-pdf.'
+      end
+    end
+
     def initialize
       verify_available!
     end
 
     def exec(pdf1_path, pdf2_path, output_diff: nil, options: nil)
-      system("diff-pdf #{build_options(output_diff, options).join(' ')} #{pdf1_path} #{pdf2_path}")
+      result = system("diff-pdf #{build_options(output_diff, options).join(' ')} #{pdf1_path} #{pdf2_path} > /dev/null 2>&1")
+
+      raise UnknownDiffPdfExitCode.new($?.exitstatus) if $?.exitstatus < 0 || $?.exitstatus > 1
+
+      result
     end
 
     private
