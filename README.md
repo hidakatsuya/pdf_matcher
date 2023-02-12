@@ -15,7 +15,7 @@ Note that you can install it with [hidakatsuya/setup-diff-pdf](https://github.co
 
 ### Supported Ruby Versions
 
-2.6, 2.7, 3.0
+2.6, 2.7, 3.0, 3.1, 3.2
 
 ## Installation
 
@@ -114,7 +114,7 @@ $ bundle exec rake test
 However, this gem requires diff-pdf. You can install it locally or use a docker container.
 
 ```
-$ docker pull ghcr.io/hidakatsuya/ruby-with-diff-pdf:latest
+$ docker pull ghcr.io/hidakatsuya/ruby-with-diff-pdf:3.2
 $ docker run -v $PWD:/src:cached -it ghcr.io/hidakatsuya/ruby-with-diff-pdf bash
 
 > src# bundle install
