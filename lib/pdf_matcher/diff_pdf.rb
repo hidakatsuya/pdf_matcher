@@ -31,11 +31,16 @@ module PdfMatcher
     end
 
     def exec(pdf1_path, pdf2_path, output_diff: nil, options: nil)
-      result = system("diff-pdf #{build_options(output_diff, options).join(' ')} #{pdf1_path} #{pdf2_path} > /dev/null 2>&1")
+      `diff-pdf #{build_options(output_diff, options).join(' ')} #{pdf1_path} #{pdf2_path} > /dev/null 2>&1`
 
-      raise UnknownDiffPdfExitCode.new($?.exitstatus) if $?.exitstatus < 0 || $?.exitstatus > 1
-
-      result
+      case $?.exitstatus
+      when 0
+        true
+      when 1
+        false
+      else
+        raise UnknownDiffPdfExitCode, $?.exitstatus
+      end
     end
 
     private
