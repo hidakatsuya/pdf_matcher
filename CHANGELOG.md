@@ -1,3 +1,7 @@
+## main (Unreleased)
+
+- Drop Ruby2.7 support
+
 ## 2.1.0
 
 ### Changes
