@@ -15,7 +15,7 @@ Note that you can install it with [hidakatsuya/setup-diff-pdf](https://github.co
 
 ### Supported Ruby Versions
 
-3.0, 3.1, 3.2
+3.0, 3.1, 3.2, 3.3
 
 ## Installation
 
